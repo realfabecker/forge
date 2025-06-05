@@ -4,14 +4,14 @@ import { EmailMessage } from "src/core/domain/email/EmailMessage";
 import { MessageType } from "src/core/domain/enums/MessageType";
 import { OperationType } from "src/core/domain/enums/OperationType";
 import { CrawlerDoesNotExists } from "src/core/domain/errors/CrawlerDoesNotExists";
-import { ICrawlerRepository } from "src/core/ports/ICrawlerRepository";
+import { IMessageCrawlerConfigRepository } from "src/core/ports/ICrawlerRepository";
 import { IEmailMessageProvider } from "src/core/ports/IEmailMessageProvider";
 import { ILogger } from "src/core/ports/ILogger";
 import { IQueueProvider } from "src/core/ports/IQueueProvider";
 
 type ScheduleMessageTypeImportOpts = {
   emailProvider: IEmailMessageProvider;
-  crawlerRepository: ICrawlerRepository;
+  crawlerRepository: IMessageCrawlerConfigRepository;
   queueProvider: IQueueProvider;
   logger: ILogger;
 };

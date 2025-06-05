@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { OperationType } from "../enums/OperationType";
-import { MessageType } from "../enums/MessageType";
 
 export const MessageMeta = z.object({
   meta: z.object({
@@ -30,6 +29,7 @@ export const ImportMessageAttachmentMessage = z.object({
   }),
   data: z.object({
     userId: z.string(),
+    crawlerId: z.string(),
     messageId: z.string(),
   }),
 });

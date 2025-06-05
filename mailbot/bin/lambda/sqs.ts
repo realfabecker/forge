@@ -3,24 +3,26 @@ import { GoogleEmailMessageProvider } from "src/adapters/providers/GoogleEmailMe
 import { RegexMessageDetailExtractor } from "src/adapters/providers/RegexMessageDetailExtractor";
 import { SQSQueueProvider } from "src/adapters/providers/SQSQueueProvider";
 import { EnergyBillDynamoDbRepository } from "src/database/dynamodb/repositories/EnergyBillDynamoRepository";
-import { CrawlerInMemRepository } from "src/database/inmem/repositories/CrawlerInMemRepository";
 import { S3ObjectStorageRepository } from "src/database/s3/repositories/S3ObjectStorageRepository";
 import { ImportMessageAttachment } from "src/features/ImportMessageAttachment";
 import { ImportMessageTypeDetails } from "src/features/ImportMessageTypeDetails";
 import { ScheduleMessageTypeImport } from "src/features/ScheduleMessageTypeImport";
 import { SqsAsEventSourceHandler } from "src/handlers/lambda/SqsAsEventSourceHandler";
+import { SQSEvent } from "aws-lambda";
+import { MessageCrawlerConfigInMemRepository } from "src/database/inmem/repositories/MessageCrawlerConfigInMemRepository";
 
+const logger = new ConsoleLogger();
 const source = new SqsAsEventSourceHandler(
-  new ConsoleLogger(),
+  logger,
   new ScheduleMessageTypeImport({
     emailProvider: new GoogleEmailMessageProvider(),
-    crawlerRepository: new CrawlerInMemRepository(),
+    crawlerRepository: new MessageCrawlerConfigInMemRepository(),
     queueProvider: new SQSQueueProvider(process.env.SQS_QUEUE_URL as string),
-    logger: new ConsoleLogger(),
+    logger,
   }),
   new ImportMessageTypeDetails({
     emailProvider: new GoogleEmailMessageProvider(),
-    crawlerRepository: new CrawlerInMemRepository(),
+    crawlerRepository: new MessageCrawlerConfigInMemRepository(),
     detailExtractor: new RegexMessageDetailExtractor(),
     energyBillRepository: new EnergyBillDynamoDbRepository("sintese"),
   }),
@@ -28,21 +30,19 @@ const source = new SqsAsEventSourceHandler(
     new GoogleEmailMessageProvider(),
     new EnergyBillDynamoDbRepository("sintese"),
     new S3ObjectStorageRepository(),
-    new ConsoleLogger(),
+    logger,
   ),
 );
 
-export const handler = async (event: Record<string, any>) => {
+export const handler = async (event: SQSEvent) => {
   try {
-    await source.handler(event);
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ message: "Operation completed" }),
-    };
+    const result = await source.handler(event);
+    if (!result.isSuccess()) {
+      logger.error(result.getError().getErrorDescription());
+    } else {
+      logger.info("Operation completed");
+    }
   } catch (e) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ message: (<Error>e).message }),
-    };
+    logger.error((<Error>e).message);
   }
 };

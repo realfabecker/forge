@@ -248,7 +248,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/mailbot/dev/1749076695560-2025-06-04T22:38:15.560Z/mailbot.zip"
+                "S3Key": "serverless/mailbot/dev/1749139736708-2025-06-05T16:08:56.708Z/mailbot.zip"
               },
               "Handler": "./bin/lambda/sqs.handler",
               "Runtime": "nodejs18.x",
@@ -276,14 +276,14 @@
               "MailbotDashsqsDashconsumerLogGroup"
             ]
           },
-          "MailbotDashsqsDashconsumerLambdaVersion1B62vJz2cMoq53DoVuDjQmFhQ7AfqXz3YDzXoglVU": {
+          "MailbotDashsqsDashconsumerLambdaVersionvbQrJQGFOQhenkd7RRU8hd0tYcWqovJTWdtvA4RBN5w": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "MailbotDashsqsDashconsumerLambdaFunction"
               },
-              "CodeSha256": "5UhP9Qal1pPlGmxVldmHnM2N1Wkov4N0HMzrEOyy2C8="
+              "CodeSha256": "fLdiV/IQt7zbV2OOmTUB/WmgxA3iC/gtTHzQpElMGgU="
             }
           },
           "MailbotDashsqsDashconsumerEventSourceMappingSQSMailbotSQSQueue": {
@@ -387,7 +387,7 @@
           "MailbotDashsqsDashconsumerLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "MailbotDashsqsDashconsumerLambdaVersion1B62vJz2cMoq53DoVuDjQmFhQ7AfqXz3YDzXoglVU"
+              "Ref": "MailbotDashsqsDashconsumerLambdaVersionvbQrJQGFOQhenkd7RRU8hd0tYcWqovJTWdtvA4RBN5w"
             },
             "Export": {
               "Name": "sls-mailbot-dev-MailbotDashsqsDashconsumerLambdaFunctionQualifiedArn"
@@ -524,7 +524,7 @@
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "MailbotDashsqsDashconsumerLambdaVersion1B62vJz2cMoq53DoVuDjQmFhQ7AfqXz3YDzXoglVU"
+        "versionLogicalId": "MailbotDashsqsDashconsumerLambdaVersionvbQrJQGFOQhenkd7RRU8hd0tYcWqovJTWdtvA4RBN5w"
       }
     },
     "resources": {
@@ -625,7 +625,7 @@
     "artifact": "/home/nuvem/workspace/realfabecker/mailbot/mailbot/.build/.serverless/mailbot.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/mailbot/dev/1749076695560-2025-06-04T22:38:15.560Z",
+    "artifactDirectoryName": "serverless/mailbot/dev/1749139736708-2025-06-05T16:08:56.708Z",
     "artifact": "mailbot.zip"
   }
 }

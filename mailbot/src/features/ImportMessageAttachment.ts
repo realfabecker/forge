@@ -16,9 +16,11 @@ export class ImportMessageAttachment {
 
   public async run({
     userId,
+    crawlerId,
     messageId,
   }: {
     userId: string;
+    crawlerId: string;
     messageId: string;
   }): Promise<DomainResult> {
     const fetchMessageResult = await this.energyBillRepository.findById(

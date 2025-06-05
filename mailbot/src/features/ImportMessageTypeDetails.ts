@@ -2,14 +2,14 @@ import { EnergyBillMapper } from "src/adapters/mappers/EnergyBillMapper";
 import { DomainResult } from "src/core/domain/common/DomainResult";
 import { CrawlerDoesNotExists } from "src/core/domain/errors/CrawlerDoesNotExists";
 import { NotEnoughtMessageDetails } from "src/core/domain/errors/NotEnoughMessageDetails";
-import { ICrawlerRepository } from "src/core/ports/ICrawlerRepository";
+import { IMessageCrawlerConfigRepository } from "src/core/ports/ICrawlerRepository";
 import { IEmailMessageProvider } from "src/core/ports/IEmailMessageProvider";
 import { IEnergyBillRepository } from "src/core/ports/IEnergyBillRepository";
 import { IMessageDetailExtractor } from "src/core/ports/IMessageDetailExtractor";
 
 type ImportMessageTypeDetailsOpts = {
   emailProvider: IEmailMessageProvider;
-  crawlerRepository: ICrawlerRepository;
+  crawlerRepository: IMessageCrawlerConfigRepository;
   detailExtractor: IMessageDetailExtractor;
   energyBillRepository: IEnergyBillRepository;
 };

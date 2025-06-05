@@ -36,7 +36,10 @@ commands:
           - name: "send-message"
             short: "send base message"
             cmd: |
-              aws --profile localstack sqs send-message --queue-url http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/mailbot --message-body '{"meta": "message_type#EnergyBill", "data": {"messageId": "xxx"}}'
+              aws --profile localstack sqs \
+                send-message \
+                --queue-url http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/mailbot \
+                --message-body '{"meta": {"operation": "ImportMessageDetails"}, "data": { "userId": "123456", "crawlerId": "google", "messageId": "123456"}}'
           - name: "lambda-logs"
             short: "lambda logs"
             cmd: |
